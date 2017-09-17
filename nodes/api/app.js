@@ -13,9 +13,56 @@ app.use(expressLogging(logger));
 
 var port = process.env.PORT || 1000;
 
+//Configuring express to use body-parser as middle-ware.
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  res.header("Access-Control-Allow-Headers", "Content-Type");
+  res.header("Access-Control-Allow-Methods", "PUT, GET, POST, DELETE, OPTIONS");
+  next();
+});
+
 app.get('/fl/version', function(req, res) {
     clientLinks.get('fl/version', function(err, res2, body) {
-        body.reference = "gateway";
+        res.end(JSON.stringify(body));
+    });
+});
+
+app.get('/fl/link', function(req, res) {
+    clientLinks.get('fl/link', function(err, res2, body) {
+        res.end(JSON.stringify(body));
+    });
+});
+
+app.post('/fl/link/edit/:uid', function(req, res) {
+	var id = req.params.uid;
+	var data = req.body;
+    clientLinks.post('fl/link/edit/'+id, data, function(err, res2, body) {
+        res.end();
+    });
+});
+
+app.post('/fl/link/delete/:uid', function(req, res) {
+	var id = req.params.uid;
+	var data = req.body;
+    clientLinks.post('fl/link/delete/'+id, data, function(err, res2, body) {
+        res.end();
+    });
+});
+
+
+app.post('/fl/link/add', function(req, res) {
+	var data = req.body;
+    clientLinks.post('fl/link/add', data, function(err, res2, body) {
+        res.end();
+    });
+});
+
+
+app.get('/fl/tag', function(req, res) {
+    clientLinks.get('fl/tag', function(err, res2, body) {
         res.end(JSON.stringify(body));
     });
 });
