@@ -12,26 +12,42 @@ services:
   api:
     build: nodes/api/
     environment:
-      - PORT=$API_PORT
+      - PORT=$API_PORT_1
     ports:
-      - $API_PORT
+      - $API_PORT_1
+
+  links:
+    build: nodes/links/
+    environment:
+      - PORT=$API_PORT_2
+    ports:
+      - $API_PORT_2
     links:
       - rdb
-
-  lb:
-    image: dockercloud/haproxy
-    ports:
-      - "$API_PORT:80"
-    links:
-      - api
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
 
   ui:
     build: 
       context: nodes/ui/
       args:
       - API_HOST=$API_HOST
-      - API_PORT=$API_PORT
+      - API_PORT=$API_PORT_1
     ports:
       - "$UI_PORT:$UI_PORT"
+
+  lb1:
+    image: dockercloud/haproxy
+    ports:
+      - "$API_PORT_1:80"
+    links:
+      - api
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  lb2:
+    image: dockercloud/haproxy
+    ports:
+      - "$API_PORT_2:80"
+    links:
+      - links
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock

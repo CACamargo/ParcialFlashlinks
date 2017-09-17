@@ -13,7 +13,6 @@
     "express": "^4.14.0",
     "express-logging": "^1.1.1",
     "logops": "^2.1.0",
-    "rethinkdbdash": "^2.3.21",
-    "request-json": "^0.6.2"
+    "rethinkdbdash": "^2.3.21"
   }
 }
