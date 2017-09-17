@@ -1,4 +1,3 @@
-var env = require('./env.js');
 var os = require("os");
 var pjson = require('./package.json');
 var version = pjson.version;
@@ -14,12 +13,13 @@ app.use(expressLogging(logger));
 
 var port = process.env.PORT || 1000;
 
-app.get('/version', function(req, res) {
-    clientLinks.get('/fl/version', function(err, res2, body) {
+app.get('/fl/version', function(req, res) {
+    clientLinks.get('fl/version', function(err, res2, body) {
         body.reference = "gateway";
         res.end(JSON.stringify(body));
     });
 });
+
 
 /*
 Server start
