@@ -71,7 +71,7 @@ app.post('/fl/metrics/add', function(req, res){
 });
 
 
-/*app.post('/fl/metrics/visit/', function(req, res) {  
+app.post('/fl/metrics/visit/', function(req, res) {  
   var data = req.body;
   var url = data.url;
   r.db('db_metric').table('metrics')
@@ -84,7 +84,7 @@ app.post('/fl/metrics/add', function(req, res){
     .error(function(err) {
       res.status(500).send('Internal Server Error');
     })
-});*/
+});
 
 /*
 Server start
