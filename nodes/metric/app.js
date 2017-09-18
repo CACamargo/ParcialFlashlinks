@@ -71,12 +71,12 @@ app.post('/fl/metrics/add', function(req, res){
 });
 
 
-/*app.post('/fl/metrics/visit/:uid', function(req, res) {  
+app.post('/fl/metrics/visit/:uid', function(req, res) {  
   var url = req.params.uid;
   var data = req.body;
   r.db('db_metric').table('metrics')
     .filter(r.row('url').eq(url))
-    .update({views: r.row("views").add(1)}).
+    .update({visits: r.row('visits').add(1).default(0)})
     .run()
     .then(function(result) {
       res.send('Query executed');
@@ -84,7 +84,7 @@ app.post('/fl/metrics/add', function(req, res){
     .error(function(err) {
       res.status(500).send('Internal Server Error');
     })
-});*/
+});
 
 /*
 Server start

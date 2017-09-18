@@ -105,7 +105,16 @@
             date: new Date(Date.now())
           }
         ).then(function success(response) {
-            console.log(response);
+            $http.post(api + '/fl/metrics/add', 
+              {
+                url: url,
+                visits: 0
+              }
+            ).then(function success(response) {
+                console.log(response);
+              },function error(response) {
+                console.log(response);
+            });
           },function error(response) {
             console.log(response);
         });
@@ -136,20 +145,6 @@
             console.log(response);
         });
       };
-
-      /*function addMetric(url){
-        $http.post(api + '/fl/metrics/add', 
-          {
-            url: httpFilter(url),
-            visits: 0,
-            date: new Date(Date.now())
-          }
-        ).then(function success(response) {
-            console.log(response);
-          },function error(response) {
-            console.log(response);
-        });
-      };*/
 
       function visitLink(url){
         $http.post(api + '/fl/metrics/visit/' + url
@@ -182,6 +177,7 @@
         addLink: addLink,
         editLink: editLink,
         deleteLink: deleteLink,
+        visitLink: visitLink
       };
     }]
   );
