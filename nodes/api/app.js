@@ -73,13 +73,12 @@ app.post('/fl/metrics/add', function(req, res) {
     });
 });
 
-app.post('/fl/metrics/visit/:uid', function(req, res) {
-    var id = req.params.uid;
+/*app.post('/fl/metrics/visit/', function(req, res) {
     var data = req.body;
     clientMetric.post('fl/metrics/visit/'+id, data, function(err, res2, body) {
         res.end();
     });
-});
+});*/
 
 app.get('/fl/tag', function(req, res) {
     clientLinks.get('fl/tag', function(err, res2, body) {

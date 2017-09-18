@@ -20,7 +20,7 @@ var r = require('rethinkdbdash')({
 });
 
 //create rethinkdb DB
-r.dbDrop('db_metric').run()
+//r.dbDrop('db_metric').run()
 r.dbCreate('db_metric').run().then(function(result) {
   console.log("db_metric DB created")
 }).error(function(error) {
@@ -71,9 +71,9 @@ app.post('/fl/metrics/add', function(req, res){
 });
 
 
-app.post('/fl/metrics/visit/:uid', function(req, res) {  
-  var url = req.params.uid;
+/*app.post('/fl/metrics/visit/', function(req, res) {  
   var data = req.body;
+  var url = data.url;
   r.db('db_metric').table('metrics')
     .filter(r.row('url').eq(url))
     .update({visits: r.row('visits').add(1).default(0)})
@@ -84,7 +84,7 @@ app.post('/fl/metrics/visit/:uid', function(req, res) {
     .error(function(err) {
       res.status(500).send('Internal Server Error');
     })
-});
+});*/
 
 /*
 Server start

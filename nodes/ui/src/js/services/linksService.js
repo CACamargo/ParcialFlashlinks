@@ -107,7 +107,7 @@
         ).then(function success(response) {
             $http.post(api + '/fl/metrics/add', 
               {
-                url: url,
+                url: httpFilter(url),
                 visits: 0
               }
             ).then(function success(response) {
@@ -147,7 +147,10 @@
       };
 
       function visitLink(url){
-        $http.post(api + '/fl/metrics/visit/' + url
+        $http.post(api + '/fl/metrics/visit/',
+          {
+            url: url
+          }
         ).then(function success(response) {
             console.log(response);
           },function error(response) {

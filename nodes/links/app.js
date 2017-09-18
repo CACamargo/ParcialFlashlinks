@@ -20,7 +20,7 @@ var r = require('rethinkdbdash')({
 });
 
 //create rethinkdb DB
-r.dbDrop('db_links').run()
+//r.dbDrop('db_links').run()
 r.dbCreate('db_links').run().then(function(result) {
   console.log("db_links DB created")
 }).error(function(error) {
