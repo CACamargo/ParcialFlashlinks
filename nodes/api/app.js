@@ -8,6 +8,7 @@ var expressLogging = require('express-logging');
 var logger = require('logops');
 var request = require('request-json');
 var clientLinks = request.createClient('http://links:2000/');
+var clientMetric = request.createClient('http://metric:3000/');
 
 app.use(expressLogging(logger));
 
@@ -36,6 +37,13 @@ app.get('/fl/link', function(req, res) {
     });
 });
 
+app.post('/fl/link/add', function(req, res) {
+	var data = req.body;
+    clientLinks.post('fl/link/add', data, function(err, res2, body) {
+        res.end();
+    });
+});
+
 app.post('/fl/link/edit/:uid', function(req, res) {
 	var id = req.params.uid;
 	var data = req.body;
@@ -52,14 +60,26 @@ app.post('/fl/link/delete/:uid', function(req, res) {
     });
 });
 
+app.get('/fl/metrics', function(req, res) {
+    clientMetric.get('fl/metrics', function(err, res2, body) {
+        res.end(JSON.stringify(body));
+    });
+});
 
-app.post('/fl/link/add', function(req, res) {
-	var data = req.body;
-    clientLinks.post('fl/link/add', data, function(err, res2, body) {
+app.post('/fl/metrics/add', function(req, res) {
+    var data = req.body;
+    clientMetric.post('fl/metrics/add', data, function(err, res2, body) {
         res.end();
     });
 });
 
+app.post('/fl/metrics/visit/:uid', function(req, res) {
+    var id = req.params.uid;
+    var data = req.body;
+    clientMetric.post('fl/metrics/visit/'+id, data, function(err, res2, body) {
+        res.end();
+    });
+});
 
 app.get('/fl/tag', function(req, res) {
     clientLinks.get('fl/tag', function(err, res2, body) {

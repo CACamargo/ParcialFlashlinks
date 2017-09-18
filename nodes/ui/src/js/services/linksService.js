@@ -137,6 +137,29 @@
         });
       };
 
+      /*function addMetric(url){
+        $http.post(api + '/fl/metrics/add', 
+          {
+            url: httpFilter(url),
+            visits: 0,
+            date: new Date(Date.now())
+          }
+        ).then(function success(response) {
+            console.log(response);
+          },function error(response) {
+            console.log(response);
+        });
+      };*/
+
+      function visitLink(url){
+        $http.post(api + '/fl/metrics/visit/' + url
+        ).then(function success(response) {
+            console.log(response);
+          },function error(response) {
+            console.log(response);
+        });
+      };
+
       function getTagsFromAPI(){
         $http.get(api + '/fl/tag')
           .then(function success(response) {
